@@ -34,6 +34,8 @@ enum PersonJob {
 	TEACHER("Nauczyciel"), 
 	MANAGER("Kierownik"), 
 	DIRECTOR("Dyrektor");
+	PROGRAMMER("Programista");
+	LAWYER("Prawnik");	
 
 	String jobName;
 
@@ -84,6 +86,7 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private int birthYear;
+	private int age;
 	private PersonJob job;
  
 	
@@ -91,6 +94,19 @@ public class Person {
 		setFirstName(first_name);
 		setLastName(last_name);
 		job = PersonJob.UNKNOWN;
+	}
+
+	private int setAge(){
+		if(birthYear != 0){
+			int year = Year.now().getValue();
+			this.age = year - age;
+		} else{
+			this.age = 0;
+		}
+	}
+
+	public int getAge(){
+		return age;
 	}
 
 	
@@ -127,6 +143,7 @@ public class Person {
 		if ((birth_year!=0) && (birth_year < 1900 || birth_year > 2030))
 			throw new PersonException("Rok urodzenia musi być w przedziale [1900 - 2030].");
 		this.birthYear = birth_year;
+		setAge();
 	}
 	
 	
